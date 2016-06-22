@@ -33,7 +33,7 @@ http://xem.github.io/js13k-level-editor/editor.html
 
 Demo (existing, editable level):
 
-http://xem.github.io/js13k-level-editor/editor.html#%20%20ddhijklmnopqrstuvwxy
+http://xem.github.io/js13k-level-editor/editor.html#%20%20ddhijklmnopqrstuvwxy (wip)
 
 Spritesheets used by this demo:
 
@@ -48,6 +48,7 @@ It's a JS script that's used by the editor and by your game. (r.js, 162b)
 
 It reads the URL's hash and puts all the data of the level in the variable "d":
 
+````
 d = {
   w: // tile width in px,
   h: // tile height in px,
@@ -60,22 +61,25 @@ d = {
     ... // one entry for each tile of the map
   ]
 }
+````
 
 Demo:
 
-http://xem.github.io/js13k-level-editor/reader.html#%20%20ddhijklmnopqrstuvwxy
+http://xem.github.io/js13k-level-editor/reader.html#%20%20ddhijklmnopqrstuvwxy (wip)
 
 
 Structure of a level's URL
 --
 
-http://(game_url)/index.html#whWHTTT...
+Hashes have the following form:
+
+    http://(game_url)/index.html#whWHTTT...
 
 with:
 
-- w: String.fromCodePoint(tile width in px)
-- h: String.fromCodePoint(tile height in px
-- W: String.fromCodePoint(level width in tiles)
-- H: String.fromCodePoint(level height in tiles)
-- T: String.fromCodePoint(tile index)+String.fromCodePoint(tile coord X)+String.fromCodePoint(tile coord Y)
+- w: String.fromCodePoint(tile width in px) // 1 char
+- h: String.fromCodePoint(tile height in px // 1 char
+- W: String.fromCodePoint(level width in tiles) // 1 char
+- H: String.fromCodePoint(level height in tiles) // 1 char
+- T: String.fromCodePoint(tile index)+String.fromCodePoint(tile coord X)+String.fromCodePoint(tile coord Y) // 3 chars
 - T: ... repeat for all the tiles of the map
