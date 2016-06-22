@@ -1,0 +1,32 @@
+<script src=r.js></script>
+<style>div{height:95vh;overflow:auto;float:left;border:1px solid}</style>
+<div style="width:145px"><canvas id=a width=128 height=1024></div>
+<div style="width:calc(99vw - 180px)"><canvas id=A width=3200 height=3200></div>
+<script>
+c=a.getContext`2d`
+C=A.getContext`2d`
+
+// empty hash (new map)
+if(location.hash==""){
+  d={
+    w:32, //prompt("Tile width", 32);
+    h:32, //prompt("Tile height", 32);
+    W:100, //prompt("Level width", 100);
+    H:100, //prompt("Level height", 100);
+  }
+}
+
+// Draw grid
+c.fillStyle="#eee";
+C.fillStyle="#eee";
+for(i=0;i<1e6;i+=d.w){
+  c.fillRect(i,0,1,1e6);
+  C.fillRect(i,0,1,1e6);
+}
+for(i=0;i<1e6;i+=d.h){
+  c.fillRect(0,i,1e6,1);
+  C.fillRect(0,i,1e6,1);
+}
+</script>
+<script src=s.js></script>
+<img src=s.png hidden onload=c.drawImage(this,0,0)>
