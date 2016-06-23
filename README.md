@@ -5,7 +5,7 @@ This projects contains a level editor specially conceived for the js13kgames.com
 
 It can be used to produce built-in levels for your js13k game.
 
-It's so small, you can also include it in your entry and use it as a custom level editor for your game.
+It's super small (1.02kb gzipped), so you can also include it in your entry and use it as a custom level editor for your game.
 
 Feel free to fork it and adapt it to your needs.
 
@@ -39,7 +39,7 @@ http://xem.github.io/js13k-level-editor/editor.html
 
 Demo (existing, editable level):
 
-http://xem.github.io/js13k-level-editor/editor.html#%20%20ddhijklmnopqrstuvwxy
+http://xem.github.io/js13k-level-editor/editor.html#@@%C2%84%C2%84#!%22$!%22%25!%22&!%22!!%22%22!%22%27!%22(!%22)!%22*!%22+!%22,!%22-!%22-%22%22-#%22-$%22-%25%22-&%22-%27%22-(%22-)%22%25)%22$)%22#)%22%22)%22!)%22!(%22!%27%22!&%22!%25%22!$%22!#%22!%22%22&)!%27)!()!))!*)!+)!,)!+$$+%25$*&%22+&%22,&%22#(%20
 
 Spritesheets used by this demo:
 
@@ -72,7 +72,7 @@ d = {
 
 Demo:
 
-http://xem.github.io/js13k-level-editor/reader.html#%20%20ddhijklmnopqrstuvwxy
+http://xem.github.io/js13k-level-editor/index.html#@@%C2%84%C2%84#!%22$!%22%25!%22&!%22!!%22%22!%22%27!%22(!%22)!%22*!%22+!%22,!%22-!%22-%22%22-#%22-$%22-%25%22-&%22-%27%22-(%22-)%22%25)%22$)%22#)%22%22)%22!)%22!(%22!%27%22!&%22!%25%22!$%22!#%22!%22%22&)!%27)!()!))!*)!+)!,)!+$$+%25$*&%22+&%22,&%22#(%20
 
 ---
 

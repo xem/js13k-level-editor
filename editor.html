@@ -1,66 +1,21 @@
-<style>div{height:95vh;overflow:auto;float:left;position:relative}div,canvas{border:1px solid}x{border:2px solid red;position:absolute;left:200px}</style>
-<div style="width:147px"><canvas id=a width=128 height=1024></canvas><x id=p></div>
-<div style="width:calc(99vw - 180px)"><canvas id=A width=3200 height=3200></div>
+<p><input style=width:85vw id=o> <a href=# id=l>go</a> <a href=editor.html>reset</a>
+<div style="width:146px;height:calc(99vh - 60px);overflow:auto;float:left;position:relative;border:1px solid"><canvas id=a width=128 height=1024></canvas><v style=border:2px solid red;position:absolute;top:0;left:0 id=p></div>
+<div style="width:calc(99vw - 180px);height:calc(99vh - 60px);overflow:auto;float:left;position:relative;border:1px solid"><canvas id=A oncontextmenu=return!1 onmouseup=m=0 onmousedown=m=event.which;D(event)></div>
 <script src=r.js></script>
 <script>
-
-// Init canvases
-c=a.getContext`2d`;
-C=A.getContext`2d`;
-
-// New map (if hash is empty)
-if(location.hash==""){
-  d={
-    w:32, //prompt("Tile width", 32);
-    h:32, //prompt("Tile height", 32);
-    W:60, //prompt("Level width", 100);
-    H:40, //prompt("Level height", 100);
-  }
+c=a.getContext`2d`;C=A.getContext`2d`
+load_level(o.value=(decodeURI(location.hash)).slice(1));if(!d.w)d={w:+prompt("w", 32),h:+prompt("h", 32),W:+prompt("W", 100),H:+prompt("H", 100),T:[]}
+A.width=d.W*d.w;A.height=d.H*d.h
+p.style.width=d.w-1;p.style.height=d.h-1
+c.fillStyle=C.fillStyle="#ddd";for(i=0;i<1e6;i+=d.w)c.fillRect(i,0,1,1e6),C.fillRect(i,0,1,1e6);for(i=0;i<1e6;i+=d.h)c.fillRect(0,i,1e6,1),C.fillRect(0,i,1e6,1)
+m=t=x=y=0;a.onclick=e=>{r=a.getBoundingClientRect();x=(~~((e.pageX-r.left)/d.w))*d.w;y=(~~((e.pageY-r.top)/d.h))*d.h;p.style.left=x+"px";p.style.top=y+"px";t=x/d.w+(128/d.w)*(y/d.h)}
+D=A.onmousemove=e=>{
+R=A.getBoundingClientRect();X=(~~((e.pageX-R.left)/d.w))*d.w;Y=(~~((e.pageY-R.top)/d.h))*d.h;
+if(m){C.fillStyle="#fff";C.fillRect(X+1,Y+1,d.w-1,d.h-1);for(i in d.T)d.T[i][0]==X/d.w&&d.T[i][1]==Y/d.h&&delete d.T[i]}
+if(m==1){C.drawImage(a,x+1,y+1,d.w-1,d.h-1,X+1,Y+1,d.w-1,d.h-1);E=0;for(i in d.T)d.T[i][0]==X/d.w&&d.T[i][1]==Y/d.h&&(d.T[i][2]=t,E=1);E||d.T.push([X/d.w,Y/d.h,t])}
+if(m){o.value=String.fromCodePoint(d.w+32)+String.fromCodePoint(d.h+32)+String.fromCodePoint(d.W+32)+String.fromCodePoint(d.H+32);for(i in d.T)o.value+=String.fromCodePoint(d.T[i][0]+32)+String.fromCodePoint(d.T[i][1]+32)+String.fromCodePoint(d.T[i][2]+32);l.href="#"+encodeURI(o.value)}
 }
-
-// Resize map
-A.width=d.W*d.w;
-A.height=d.H*d.h;
-
-// Resize p
-p.style.width=d.w-1+"px";
-p.style.height=d.h-1+"px";
-
-// Draw grids
-c.fillStyle=C.fillStyle="#ddd";
-for(i=0;i<1e6;i+=d.w){
-  c.fillRect(i,0,1,1e6);
-  C.fillRect(i,0,1,1e6);
-}
-for(i=0;i<1e6;i+=d.h){
-  c.fillRect(0,i,1e6,1);
-  C.fillRect(0,i,1e6,1);
-}
-
-// Select a tile on a
-a.onclick=e=>{
-  r=a.getBoundingClientRect();
-  x=(~~((e.pageX-r.left)/d.w))*d.w;
-  y=(~~((e.pageY-r.top)/d.h))*d.h;
-  p.style.left=x+"px";
-  p.style.top=y+"px";
-  t=(y/d.h)*(~~(d.W/d.w))+(x/d.w);
-}
-
-// Draw a tile on A
-A.onclick=e=>{
-  R=A.getBoundingClientRect();
-  X=(~~((e.pageX-R.left)/d.w))*d.w;
-  Y=(~~((e.pageY-R.top)/d.h))*d.h;
-  C.drawImage(a,x,y,d.w,d.h,X,Y,d.w,d.h);
-}
-
-// Update hash
-u=z=>{
-  location.hash=String.fromCodePoint(d.w)+String.fromCodePoint(d.h)+String.fromCodePoint(d.W)+String.fromCodePoint(d.H);
-}
-
-u();
+onload=z=>{for(i in d.T)C.drawImage(a,(d.T[i][2]*d.w)%128+1,~~(d.T[i][2]/(128/d.w))*d.h+1,d.w-1,d.h-1,d.T[i][0]*d.w+1,d.T[i][1]*d.h+1,d.w-1,d.h-1)}
 </script>
-<script src=s.js></script>
 <img src=s.png hidden onload=c.drawImage(this,0,0)>
+<script src=s.js></script>

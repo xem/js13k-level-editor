@@ -1,1 +1,1 @@
-z=decodeURIComponent(location.hash);d={w:z[y="codePointAt"](1),h:z[y](2),W:z[y](3),H:z[y](4),T:[]};for(i=5;i<z.length;i+=3)d.T.push([z[y](i),z[y](i+1),z[y](i+2)])
+d={};load_level=z=>{d={w:z[y="codePointAt"](0)-32,h:z[y](1)-32,W:z[y](2)-32,H:z[y](3)-32,T:[]};for(i=4;i<z.length;i+=3)d.T.push([z[y](i)-32,z[y](i+1)-32,z[y](i+2)-32])}
