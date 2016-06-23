@@ -1,5 +1,7 @@
 c.fillStyle="blue";
 c.fillRect(32,0,32,32);
+c.fillStyle="green";
+c.fillRect(0,16,32,16);
 c.fillStyle="black";
 c.fillRect(64,0,32,32);
 c.fillStyle="red";

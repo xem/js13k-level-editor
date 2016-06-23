@@ -9,7 +9,7 @@ It's super small (1.02kb gzipped), so you can also include it in your entry and 
 
 Feel free to fork it and adapt it to your needs.
 
-There's also a level reader that you can use directly in your game to load built-in or custom levels.
+There's also a (168b) level reader that you can use directly in your game to load built-in or custom levels.
 
 Join the discussion on: https://js13kgames.slack.com/messages/level-editor-share/
 
@@ -23,13 +23,13 @@ The editor lets you pick tiles from a spritesheet and paste them on a blank map.
 
 The spritesheet (on the left) is a canvas called "a", with a context2D called "c".
 
-It loads automatically the file /s.png and the script /s.js at the root of the project. The png file is drawn on the canvas, then the JS script is executed.
+It loads automatically the file /s.png and the script /s.js at the root of the project. The JS script is executed, then the png file is drawn on the canvas.
 
 Any of these two files can be omitted (your spritesheet can be png only or js only).
 
 Of course, these files can also be used in your game.
 
-The editor lets you choose a tile size (8x8, 16x16, 32x32, 64x64, ...) and a level size (width and height, counted in tiles).
+The editor lets you choose a tile size in px (8x8, 16x16, 32x32, 64x64, 128x128) and a level size (width and height, counted in tiles).
 
 The editor outputs a hash that can be appended to the URL of the level reader (in order to load and use it), or the URL of the level editor (in order to edit it)
 
@@ -51,7 +51,7 @@ Spritesheets used by this demo:
 Level reader
 --
 
-It's a JS script that's used by the editor and by your game. (r.js, 162b)
+It's a JS script that's used by the editor and by your game. (r.js)
 
 It reads the URL's hash and puts all the data of the level in the variable "d":
 
