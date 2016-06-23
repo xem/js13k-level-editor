@@ -1,24 +1,33 @@
-<script src=r.js></script>
-<style>div{height:95vh;overflow:auto;float:left;border:1px solid}</style>
-<div style="width:145px"><canvas id=a width=128 height=1024></div>
+<style>div{height:95vh;overflow:auto;float:left;position:relative}div,canvas{border:1px solid}x{border:2px solid red;position:absolute;left:200px}</style>
+<div style="width:147px"><canvas id=a width=128 height=1024></canvas><x id=p></div>
 <div style="width:calc(99vw - 180px)"><canvas id=A width=3200 height=3200></div>
+<script src=r.js></script>
 <script>
-c=a.getContext`2d`
-C=A.getContext`2d`
 
-// empty hash (new map)
+// Init canvases
+c=a.getContext`2d`;
+C=A.getContext`2d`;
+
+// New map (if hash is empty)
 if(location.hash==""){
   d={
     w:32, //prompt("Tile width", 32);
     h:32, //prompt("Tile height", 32);
-    W:100, //prompt("Level width", 100);
-    H:100, //prompt("Level height", 100);
+    W:60, //prompt("Level width", 100);
+    H:40, //prompt("Level height", 100);
   }
 }
 
-// Draw grid
-c.fillStyle="#eee";
-C.fillStyle="#eee";
+// Resize map
+A.width=d.W*d.w;
+A.height=d.H*d.h;
+
+// Resize p
+p.style.width=d.w-1+"px";
+p.style.height=d.h-1+"px";
+
+// Draw grids
+c.fillStyle=C.fillStyle="#ddd";
 for(i=0;i<1e6;i+=d.w){
   c.fillRect(i,0,1,1e6);
   C.fillRect(i,0,1,1e6);
@@ -27,6 +36,31 @@ for(i=0;i<1e6;i+=d.h){
   c.fillRect(0,i,1e6,1);
   C.fillRect(0,i,1e6,1);
 }
+
+// Select a tile on a
+a.onclick=e=>{
+  r=a.getBoundingClientRect();
+  x=(~~((e.pageX-r.left)/d.w))*d.w;
+  y=(~~((e.pageY-r.top)/d.h))*d.h;
+  p.style.left=x+"px";
+  p.style.top=y+"px";
+  t=(y/d.h)*(~~(d.W/d.w))+(x/d.w);
+}
+
+// Draw a tile on A
+A.onclick=e=>{
+  R=A.getBoundingClientRect();
+  X=(~~((e.pageX-R.left)/d.w))*d.w;
+  Y=(~~((e.pageY-R.top)/d.h))*d.h;
+  C.drawImage(a,x,y,d.w,d.h,X,Y,d.w,d.h);
+}
+
+// Update hash
+u=z=>{
+  location.hash=String.fromCodePoint(d.w)+String.fromCodePoint(d.h)+String.fromCodePoint(d.W)+String.fromCodePoint(d.H);
+}
+
+u();
 </script>
 <script src=s.js></script>
 <img src=s.png hidden onload=c.drawImage(this,0,0)>
