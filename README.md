@@ -89,11 +89,13 @@ Strinifed maps have the following form:
 
 with:
 
-- t: String.fromCodePoint(tile size in px) // 1 char
-- w: String.fromCodePoint(level width in tiles) // 1 char
-- h: String.fromCodePoint(level height in tiles) // 1 char
-- z: d.z // 1 char (0 or 1)
-- m: [ String.fromCodePoint(tile index)+String.fromCodePoint(tile coord X)+String.fromCodePoint(tile coord Y), ...] // 3 chars
+- t: String.fromCodePoint(d.t) // 1 char
+- w: String.fromCodePoint(d.w) // 1 char
+- h: String.fromCodePoint(d.h) // 1 char
+- z: +d.z // 1 char (0 or 1)
+
+for each tile i
+- T: String.fromCodePoint(i[0])+String.fromCodePoint(i[1])+String.fromCodePoint(i[2]) // 3 chars
 
 
 ---
