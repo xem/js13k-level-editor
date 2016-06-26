@@ -1,0 +1,1 @@
+load_level=z=>{d.t=z.codePointAt(0)-32;d.w=z.codePointAt(1)-32;d.h=z.codePointAt(2)-32;d.z=z[3];d.m=[];for(i=4;i<z.length;i+=3)d.m.push([z.codePointAt(i)-32,z.codePointAt(i+1)-32,z.codePointAt(i+2)-32])}

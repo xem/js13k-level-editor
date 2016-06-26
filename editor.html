@@ -1,21 +1,207 @@
-<p><input style=width:85vw id=o> <a href=# id=l>go</a> <a href=editor.html>reset</a>
-<div style="width:146px;height:calc(99vh - 60px);overflow:auto;float:left;position:relative;border:1px solid"><canvas id=a width=128 height=1024></canvas><v style="border:2px solid red;position:absolute;top:0;left:0"id=p></div>
-<div style="width:calc(99vw - 180px);height:calc(99vh - 60px);overflow:auto;float:left;position:relative;border:1px solid"><canvas id=A oncontextmenu=return!1 onmouseup=m=0 onmousedown=m=event.which;D(event)></div>
-<script src=r.js></script>
+<p>
+  Game URL <input id=u value="." size=33 oninput=init()>
+  - Tile size <input id=t value=32 size=3 oninput=d.t=+value;console.log(d.t);init()>
+  - Map size <input id=w value=50 size=3 oninput=d.w=+value;init()> x <input id=h value=30 size=3 oninput=d.h=+value;init()>
+  - <input type=checkbox id=z onchange=d.z=checked;init() checked> Use 1st tile by default
+  - <input type=checkbox id=E> Erase
+  - <a href=editor.html>Reset</a>
+<p>
+  Map <input id=o style=width:80vw oninput=init()>
+  - <a href=# id=l>share</a>
+  - <a href=# id=k>play</a>
+  
+<p>
+  <div style="border:1px solid;width:98vw;overflow:auto;position:relative">
+    <canvas id=a width=2048 height=32></canvas>
+    <v style="border:3px solid red;position:absolute;top:0;left:0"id=p>
+  </div>
+<p>
+  <div id=D style="border:1px solid;width:98vw;height:65vh;overflow:auto;position:relative">
+    <canvas id=A oncontextmenu=return!1 onmouseup=m=0 onmousedown=m=event.which;A.onmousemove(event)>
+  </div>
+
+<script src=l.js></script>
 <script>
-c=a.getContext`2d`;C=A.getContext`2d`
-load_level(o.value=(decodeURI(location.hash)).slice(1));if(!d.w)d={w:+prompt("tile size in px (8/16/32/64/128)", 32),W:+prompt("map width", 100),H:+prompt("map height", 100),T:[]}
-A.width=d.W*d.w;A.height=d.w*d.w
-p.style.width=d.w-2;p.style.height=d.w-2
-c.fillStyle=C.fillStyle="#ddd";for(i=0;i<1e6;i+=d.w)c.fillRect(i,0,1,1e6),C.fillRect(i,0,1,1e6);for(i=0;i<1e6;i+=d.w)c.fillRect(0,i,1e6,1),C.fillRect(0,i,1e6,1)
-m=t=x=y=0;a.onclick=e=>{r=a.getBoundingClientRect();x=(~~((e.pageX-r.left)/d.w))*d.w;y=(~~((e.pageY-r.top)/d.w))*d.w;p.style.left=x+"px";p.style.top=y+"px";t=x/d.w+(128/d.w)*(y/d.w)}
-D=A.onmousemove=e=>{
-R=A.getBoundingClientRect();X=(~~((e.pageX-R.left)/d.w))*d.w;Y=(~~((e.pageY-R.top)/d.w))*d.w;
-if(m){C.fillStyle="#fff";C.fillRect(X+1,Y+1,d.w-1,d.w-1);for(i in d.T)d.T[i][0]==X/d.w&&d.T[i][1]==Y/d.w&&delete d.T[i]}
-if(m==1){C.drawImage(a,x+1,y+1,d.w-1,d.w-1,X+1,Y+1,d.w-1,d.w-1);E=0;for(i in d.T)d.T[i][0]==X/d.w&&d.T[i][1]==Y/d.w&&(d.T[i][2]=t,E=1);E||d.T.push([X/d.w,Y/d.w,t])}
-if(m){o.value=String.fromCodePoint(d.w+32)+String.fromCodePoint(d.w+32)+String.fromCodePoint(d.W+32)+String.fromCodePoint(d.w+32);for(i in d.T)o.value+=String.fromCodePoint(d.T[i][0]+32)+String.fromCodePoint(d.T[i][1]+32)+String.fromCodePoint(d.T[i][2]+32);l.href="#"+encodeURI(o.value)}
+
+// Init the two canvases
+// =====================
+
+// Tileset
+c=a.getContext`2d`;
+
+// Map
+C=A.getContext`2d`;
+
+// Init the data
+// =============
+
+d={};
+
+// Reset map
+// =========
+
+o.value = "";
+
+
+// Load/update settings
+// ====================
+
+onload=()=>{
+  init(1);
 }
-onload=z=>{for(i in d.T)C.drawImage(a,(d.T[i][2]*d.w)%128+1,~~(d.T[i][2]/(128/d.w))*d.w+1,d.w-1,d.w-1,d.T[i][0]*d.w+1,d.T[i][1]*d.w+1,d.w-1,d.w-1)}
+
+init=(e)=>{
+  
+  console.log(d);
+  
+  // Read map hash
+  if(!o.value){
+    o.value=(decodeURI(location.hash)).slice(1);
+  }
+  load_level(o.value);
+  
+  // tile size
+  if(e && o.value) t.value = d.t;
+  else d.t = +t.value;
+  
+  // Map size
+  if(e && o.value) w.value = d.w;
+  else d.w = +w.value;
+  
+  if(e && o.value) h.value = d.h;
+  else d.h = +h.value;
+  
+  // Tile zero by default
+  if(e && o.value) z.checked = !!d.z;
+  else d.z = +z.checked;
+  
+  // map as array of tile coordinates
+  d.m = d.m || [];
+  
+  // map as text
+  d.M = d.M || "";
+  
+  // Write map
+  write_map();
+  
+  // Reset tileset canvas height and content
+  a.height=d.t;
+  
+  // Resize map container
+  D.style.height="calc(99vh - "+ (d.t + 150)+"px)"
+  
+  // Load t.js containing the JS part of the tileset (optional)
+  s=document.createElement("script");
+  s.src=u.value+"/t.js";
+  s.onload=s.onerror=()=>{
+  
+    // t.js is executed if it exists
+    
+    // Draw t.png containing the image part of the tileset (optional)  
+    I=new Image();
+    I.src=u.value+"/t.png";
+    I.onload=I.onerror=()=>{
+      c.drawImage(I,0,0);
+      
+      // Resize the tile picker
+      p.style.width=p.style.height=d.t-5;
+      
+      // Reset map canvas size and content
+      A.width=d.t*d.w;
+      A.height=d.t*d.h;
+      
+      // Fill the map with tile 0 (if checked)
+      if(z.checked){
+        for(i=0;i<d.w;i++){
+          for(j=0;j<d.h;j++){
+            C.drawImage(a,0,0,d.t,d.t,i*d.t,j*d.t,d.t,d.t);
+          }
+        }
+      }
+
+      // Draw existing map
+      for(i in d.m){
+        C.drawImage(a,d.m[i][2]*d.t,0,d.t,d.t,d.m[i][0]*d.t,d.m[i][1]*d.t,d.t,d.t);
+      }
+      
+      // Draw grid
+      c.fillStyle=C.fillStyle="#888";
+      for(i=0;i<5e5;i+=d.t){
+        c.fillRect(i,0,1,5e5);
+        C.fillRect(i,0,1,5e5);
+      }
+      for(i=0;i<5e5;i+=d.t){
+        c.fillRect(0,i,5e5,1);
+        C.fillRect(0,i,5e5,1);
+      }
+    }
+  };
+  
+  // Finish loading t.js
+  document.body.appendChild(s);
+}
+
+onhashchange=()=>{
+  o.value=(decodeURI(location.hash)).slice(1);
+  init();
+}
+
+// Select a tile
+// =============
+
+T=0;
+a.onclick=e=>{
+
+  // T = tile index
+  T=~~((e.pageX-a.getBoundingClientRect().left)/d.t);
+  
+  // Move red tile picker
+  p.style.left=T*d.t+"px";
+}
+
+// Draw / erase
+// ============
+m=0;
+A.onmousemove=e=>{
+  
+  // Get mouse coordinates
+  R=A.getBoundingClientRect();
+  X=~~((e.pageX-R.left)/d.t);
+  Y=~~((e.pageY-R.top)/d.t);
+  
+  // Remove the tile at these coordinates id left/right click is pressed
+  if(m){
+    if(d.z){
+      C.drawImage(a,0,0,d.t,d.t,X*d.t,Y*d.t,d.t,d.t);
+    }
+    else{
+      C.clearRect(X*d.t,Y*d.t,d.t,d.t);
+    }
+    for(i in d.m){
+      if(d.m[i][0]==X && d.m[i][1]==Y){
+        delete d.m[i];
+      }
+    }
+  }
+  
+  // Draw if left click is pressed (unless the eraser is checked)
+  if(m==1 && !E.checked && !(T==0 && d.z)){
+    C.drawImage(a,T*d.t,0,d.t,d.t,X*d.t,Y*d.t,d.t,d.t);
+    d.m.push([X,Y,T]);
+  }
+  
+  // Rewrite map if left/right click is pressed
+  if(m){
+    write_map();
+  }
+}
+
+write_map=()=>{
+  o.value=String.fromCodePoint(d.t+32)+String.fromCodePoint(d.w+32)+String.fromCodePoint(d.h+32)+d.z;
+  for(i in d.m){
+    o.value+=String.fromCodePoint(d.m[i][0]+32)+String.fromCodePoint(d.m[i][1]+32)+String.fromCodePoint(d.m[i][2]+32);
+  }
+  l.href="#"+encodeURI(o.value);
+  k.href=u.value+"/#"+encodeURI(o.value);
+}
 </script>
-<script src=s.js></script>
-<img src=s.png hidden onload=c.drawImage(this,0,0)>
