@@ -1,1 +1,1 @@
-load_level=z=>{d.t=z.codePointAt(0)-32;d.w=z.codePointAt(1)-32;d.h=z.codePointAt(2)-32;d.z=z[3];d.m=[];for(i=4;i<z.length;i+=3)d.m.push([z.codePointAt(i)-32,z.codePointAt(i+1)-32,z.codePointAt(i+2)-32])}
+load_level=b=>{d.t=d.t||b.codePointAt(0)-32;d.w=b.codePointAt(1)-32;d.h=b.codePointAt(2)-32;d.z=+b[3];d.m=[];for(i=4;i<b.length;i+=3)d.m.push([b.codePointAt(i)-32,b.codePointAt(i+1)-32,b.codePointAt(i+2)-32])}

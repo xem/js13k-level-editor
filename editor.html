@@ -176,7 +176,7 @@ A.onmousemove=e=>{
       C.drawImage(a,0,0,d.t,d.t,X*d.t,Y*d.t,d.t,d.t);
     }
     else{
-      C.clearRect(X*d.t,Y*d.t,d.t,d.t);
+      C.clearRect(X*d.t+1,Y*d.t+1,d.t-1,d.t-1);
     }
     for(i in d.m){
       if(d.m[i][0]==X && d.m[i][1]==Y){

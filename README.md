@@ -5,11 +5,11 @@ This projects contains a level editor specially conceived for the js13kgames.com
 
 It can be used to produce built-in levels for your js13k game.
 
-It's super small so you can also include it in your entry and use it as a custom level editor for your game.
+A lite version (1.1kb gzipped) can also be included directly in your entry as a custom level editor for your game.
 
 Feel free to fork it and adapt it to your needs.
 
-There's also a (~200b) level reader that you can use directly in your game to load built-in or user-made levels.
+There's also a tiny level reader script that you can use to load custom levels.
 
 The levels made with this editor are shareable as text or with an URL.
 
@@ -47,6 +47,27 @@ Tileset files used by this demo:
 
 - http://xem.github.io/js13k-level-editor/t.png
 - http://xem.github.io/js13k-level-editor/t.js
+
+---
+
+Editor LITE
+--
+
+The lite editor can be included in your entry.
+
+The difference with the normal editor are:
+
+- No URL field (the tileset is necessarily in the current folder)
+- No tile size field (the tile size is hardcoded at the end of editor.lite.html (d={t:32}). You can edit it manually.
+- The source code is minified
+
+Demo (blank level):
+
+http://xem.github.io/js13k-level-editor/editor.lite.html
+
+Demo (existing, editable level):
+
+https://xem.github.io/js13k-level-editor/editor.lite.html#@H/1%20.%22!.%22%22.%22#.%22$.%22%25.%22&.%22%27.%22..%22/.%220.%221.%222.%22A.%22B.%22C.%22D.%22E.%22F.%22G.%22G-%22F-%22E-%22D-%22C-%22B-%22@.%22?.%22%3E.%22=.%22%3C.%22;.%22:.%229.%228.%227.%226.%225.%224.%223.%223-%222-%221-%220-%22/-%22.-%224-%225-%226-%227-%228-%229-%22:-%22;-%22%3C-%22=-%22%3E-%22?-%22@-%22A-%22%27-%22&-%22%25-%22$-%22#-%22%22-%22!-%22%20-%22(-%22(.%22).%22)-%220**1*+0+:0,:1+;1,;$)$%27)$B&,B%27%3CB(%3CB)%3CB*%3CB+%3CB,%3CE,%3ED+0D,0F+0F,0E+.D*-F*-E*/E)0E(-!,1%22,2#,35,76+77*78+89*9:+9;,98))8*(7+(6,(7,(8,(9,(9+(:,(=,!%3E,!%3E+!?,!?+!?*!@,!@+!@*!@)!3$44$55$56$57$63#%254#&5#&6#&7#%27
 
 ---
 
