@@ -1,1 +1,1 @@
-load_level=b=>{d.t=d.t||b.codePointAt(0)-32;d.w=b.codePointAt(1)-32;d.h=b.codePointAt(2)-32;d.z=+b[3];d.m=[];for(i=4;i<b.length;i+=3)d.m.push([b.codePointAt(i)-32,b.codePointAt(i+1)-32,b.codePointAt(i+2)-32])}
+load_level=b=>{d.t=d.t||b.codePointAt(0)-32;d.w=b.codePointAt(1)-32;d.h=b.codePointAt(2)-32;d.z=+b[3];d.M=[];for(i=d.h;i--;){d.M[i]=[];for(j=d.w;j--;)d.M[i][j]=0}d.m=[];for(i=4;i<b.length;i+=3){d.m.push([b.codePointAt(i)-32,b.codePointAt(i+1)-32,b.codePointAt(i+2)-32]);d.M[b.codePointAt(i+1)-32][b.codePointAt(i)-32]=b.codePointAt(i+2)-32}}

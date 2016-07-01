@@ -20,6 +20,11 @@
   <div id=D style="border:1px solid;width:98vw;height:65vh;overflow:auto;position:relative">
     <canvas id=A oncontextmenu=return!1 onmouseup=m=0 onmousedown=m=event.which;A.onmousemove(event)>
   </div>
+<br>
+<br>
+<br>
+<p>
+  <pre id=map_array>
 
 <script src=l.js></script>
 <script>
@@ -168,7 +173,7 @@ A.onmousemove=e=>{
   // Get mouse coordinates
   R=A.getBoundingClientRect();
   X=~~((e.pageX-R.left)/d.t);
-  Y=~~((e.pageY-R.top)/d.t);
+  Y=~~((e.pageY-R.top-document.body.scrollTop-document.documentElement.scrollTop)/d.t);
   
   // Remove the tile at these coordinates id left/right click is pressed
   if(m){
@@ -204,5 +209,7 @@ write_map=()=>{
   }
   l.href="#"+encodeURI(o.value);
   k.href=u.value+"/#"+encodeURI(o.value);
+  load_level(o.value);
+  map_array.innerHTML=d.M.join("\n");
 }
 </script>
