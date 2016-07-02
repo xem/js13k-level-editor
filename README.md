@@ -5,15 +5,15 @@ This projects contains a level editor specially conceived for the js13kgames.com
 
 It can be used to produce built-in levels for your js13k game.
 
-A lite version (1.1kb gzipped) can also be included directly in your entry as a custom level editor for your game.
+The lite version (1.1kb gzipped) can also be included directly in your entry as a custom level editor for your game.
 
 Feel free to fork it and adapt it to your needs.
 
-There's also a tiny level reader script that you can use to load custom levels.
-
 The levels made with this editor are shareable as text or with an URL.
 
-Join the discussion on: https://js13kgames.slack.com/messages/level-editor-share/
+There's also a [tiny level reader script](http://xem.github.io/js13k-level-editor/l.js) that you can use to load custom levels from an URL.
+
+You can join the discussion on Slack: https://js13kgames.slack.com/messages/level-editor-share/
 
 ---
 
@@ -25,7 +25,9 @@ The editor lets you pick tiles from a tileset and paste them on a blank map.
 
 The tileset (on top) is a canvas called "a", with a context2D called "c".
 
-It loads automatically the image {url}/t.png and the script {url}/s.js at the root of the project. The JS script is executed, then the png file is drawn on the canvas.
+It loads automatically the image {url}/t.png and the script {url}/s.js at the root of the project specified in the "URL" field.
+
+The JS script is executed, then the png file is drawn on the canvas.
 
 Any of these two files can be omitted (your spritesheet can be png only or js only).
 
@@ -33,7 +35,9 @@ Of course, these files can also be used in your game.
 
 The editor lets you choose a tile size in px (like 16x16 or 32x32) and a level size, in tiles.
 
-The editor outputs a hash that can be appended to the URL of your game (in order to load and use it), or the URL of the level editor (in order to re-edit it)
+The editor creates a hash that can be used to the URL by your game (to play the level), or the level editor (to edit it).
+
+It also outputs the map as a text block, which is a much more efficient way to store built-in levels in your zipped entry. (scroll the page to see it)
 
 Demo (blank level):
 
@@ -58,6 +62,7 @@ The lite editor can be included in your entry.
 The difference with the normal editor are:
 
 - No URL field (the tileset is necessarily in the current folder)
+- No text block output
 - No tile size field (the tile size is hardcoded at the end of editor.lite.html (d={t:32}). You can edit it manually.
 - The source code is minified
 
@@ -76,7 +81,7 @@ Level reader
 
 It's a JS script containing a load_level() function, that can be used by the editor and by your game. (l.js)
 
-It reads the map data (as text) and stores everything in in the variable "d":
+It reads the hash passed in argument and stores all the important information in the object d, which is returned:
 
 ````
 d = {
@@ -84,7 +89,6 @@ d = {
   w: // level width in tiles,
   h: // level height in tiles,
   z: // use tile zero by default
-  M: // map as text, coming soon
   m: // tiles used on the map:
   [
     [tile_index, x coordinate, y coordinate],
@@ -101,10 +105,10 @@ http://xem.github.io/js13k-level-editor/index.html#@H/1%20.%22!.%22%22.%22#.%22$
 ---
 
 
-Structure of a map stored to string / URL
+Structure of a map stored to URL / text
 --
 
-Strinifed maps have the following form:
+Maps saved as hash have the following form:
 
     http://(game_url)/index.html#twhzTTT...
 
@@ -118,6 +122,35 @@ with:
 for each tile i
 - T: String.fromCodePoint(i[0])+String.fromCodePoint(i[1])+String.fromCodePoint(i[2]) // 3 chars
 
+<br>
+
+Maps saved as text have the following form:
+
+````
+                                        
+                                        
+                                        
+                   %&&&'                
+                   45556                
+                                        
+                                  ,     
+                                  <     
+                                  <  -  
+    $  $                )       ! <  0  
+                *+     7(9     !! < -/- 
+                :;    7(8(9   !!! < 0.0 
+ 123            :;   7(((((9 !!!! < 0>0 
+""""""""""    """"""""""""""""""""""""""
+""""""""""    """"""""""""""""""""""""""
+````
+
+Each char represents the index of the tile used, starting from U+0020 (to have only printable characters).
+
+The lines breaks are made with "\n" chars.
+
+To read a tile at [x:y] in this kind of map, just use: ````map_ascii.split("\n")[y].charCodeAt(x)-32````
+
+<br>
 
 ---
 
