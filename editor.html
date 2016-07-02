@@ -24,7 +24,7 @@
 <br>
 <br>
 <p>
-  <pre id=map_array>
+  <pre id=map_array style="border:1px solid;display:inline-block">
 
 <script src=l.js></script>
 <script>
@@ -58,13 +58,11 @@ onload=()=>{
 
 init=(e)=>{
   
-  console.log(d);
-  
   // Read map hash
   if(!o.value){
     o.value=(decodeURI(location.hash)).slice(1);
   }
-  load_level(o.value);
+  d=load_level(o.value);
   
   // tile size
   if(e && o.value) t.value = d.t;
@@ -209,7 +207,21 @@ write_map=()=>{
   }
   l.href="#"+encodeURI(o.value);
   k.href=u.value+"/#"+encodeURI(o.value);
-  load_level(o.value);
-  map_array.innerHTML=d.M.join("\n");
+  d.M=[];
+  for(j=0;j<d.h;j++){
+    d.M[j]=[];
+    for(i=0;i<d.w;i++){
+      d.M[j][i]=" ";
+    }
+  }
+
+  console.log(d.m);
+  for(i in d.m){
+    if(d.M[d.m[i][1]]){
+      console.log(d.m[i]);
+      d.M[d.m[i][1]][d.m[i][0]]=String.fromCodePoint(d.m[i][2]+32);
+    }
+  }
+  map_array.innerHTML=d.M.map(u=>u.join("")).join("\n");
 }
 </script>

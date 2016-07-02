@@ -1,10 +1,8 @@
-d.M:
+
 <script src=l.js></script>
 <script>
 onload=function(){
-  d={};
-  load_level(decodeURI(location.hash.slice(1)));
-  console.log(d);
-  document.write("<pre>"+JSON.stringify(d.M).replace(/],/g,"],\n").replace(/,(\d),/g,", $1,").replace(/,(\d),/g,", $1,"));
+  d=load_level(decodeURI(location.hash.slice(1)));
+  document.body.innerHTML="<tt>d="+JSON.stringify(d);
 }
 </script>
