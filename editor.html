@@ -1,8 +1,8 @@
 <a href=//github.com/xem/js13k-level-editor><img style="position:absolute;top:-18px;right:-20px;border:0;z-index:1" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 <p>
   Game URL <input id=u value="." size=33 oninput=init()>
-  - Tile size <input id=t value=32 size=3 oninput=d.t=+value;init()>
-  - Map size <input id=w value=50 size=3 oninput=d.w=+value;init()> x <input id=h value=30 size=3 oninput=d.h=+value;init()>
+  - Tile size <input id=t value=100 size=3 oninput=d.t=+value;init()>
+  - Map size <input id=w value=8 size=3 oninput=d.w=+value;init()> x <input id=h value=8 size=3 oninput=d.h=+value;init()>
   - <input type=checkbox id=z onchange=d.z=checked;init() checked> Use 1st tile by default
   - <input type=checkbox id=E> Erase
   - <a href=editor.html>Reset</a>
@@ -201,9 +201,9 @@ A.onmousemove=e=>{
 }
 
 write_map=()=>{
-  o.value=String.fromCodePoint(d.t+32)+String.fromCodePoint(d.w+32)+String.fromCodePoint(d.h+32)+d.z;
+  o.value=d.t+""+d.w+""+d.h+""+d.z;
   for(i in d.m){
-    o.value+=String.fromCodePoint(d.m[i][0]+32)+String.fromCodePoint(d.m[i][1]+32)+String.fromCodePoint(d.m[i][2]+32);
+    o.value+=d.m[i][0]+""+d.m[i][1]+""+d.m[i][2];
   }
   l.href="#"+encodeURI(o.value).replace(/\(/g,"%28").replace(/\)/g,"%29");
   k.href=u.value+"/#"+encodeURI(o.value).replace(/\(/g,"%28").replace(/\)/g,"%29");
@@ -211,13 +211,13 @@ write_map=()=>{
   for(j=0;j<d.h;j++){
     d.M[j]=[];
     for(i=0;i<d.w;i++){
-      d.M[j][i]=" ";
+      d.M[j][i]="0";
     }
   }
 
   for(i in d.m){
     if(d.M[d.m[i][1]]){
-      d.M[d.m[i][1]][d.m[i][0]]=String.fromCodePoint(d.m[i][2]+32);
+      d.M[d.m[i][1]][d.m[i][0]]=d.m[i][2];
     }
   }
   map_array.innerHTML=d.M.map(u=>u.join("")).join("\n");
